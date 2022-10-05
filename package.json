@@ -1,12 +1,12 @@
 {
-  "name": "krypton",
+  "name": "tradevision",
   "version": "4.1.1",
-  "description": "Krypton - Bulma + Alpine JS ICO/Crypto Starter",
-  "author": "cssninjaStudio",
+  "description": "tradevision - crypto bot",
+  "author": "fusionbit",
   "license": "MIT",
-  "homepage": "https://cssninjastudio.github.io/krypton",
+  "homepage": "http://fusionbit.in/",
   "bugs": {
-    "url": "https://github.com/cssninjaStudio/krypton/"
+    "url": "http://fusionbit.in/"
   },
   "repository": {
     "type": "git",
