@@ -58,7 +58,7 @@ export function initHero() {
                     },
                     "move": {
                         "enable": true,
-                        "speed": 3,
+                        "speed": 1,
                         "direction": "top",
                         "random": false,
                         "straight": false,
