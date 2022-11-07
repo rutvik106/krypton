@@ -205,7 +205,8 @@ title: Home
             </h2>
 
             <h4 class="subtitle is-6 is-light has-text-centered is-compact">
-                Back-test strategies (Profit over 1000%) | Automate Trading on Binance | Affordable $50/Month | Custom Leverage
+                Back-test strategies (Profit over 1000%) | Automate Trading on Binance | Affordable $50/Month | Custom
+                Leverage
             </h4>
             <br>
             <h4 class="subtitle is-6 is-light has-text-centered is-compact">
@@ -437,10 +438,12 @@ title: Home
                                                             <span class="item-content">$50</span>
                                                         </td>
                                                         <td style="float: right;">
-                                                            <a href="https://commerce.coinbase.com/checkout/8b235693-6f13-4e6d-bd82-c2b42ff3e78d" target="_blank" class="button k-button k-secondary raised has-gradient is-bold">
-                                                                <span class="text">Buy</span>
-                                                                <span class="front-gradient"></span>
+                                                            <a class="buy-with-crypto button k-button k-secondary raised has-gradient is-bold"
+                                                               href="https://commerce.coinbase.com/checkout/8b235693-6f13-4e6d-bd82-c2b42ff3e78d">
+                                                                Buy
                                                             </a>
+                                                            <script src="https://commerce.coinbase.com/v1/checkout.js?version=201807">
+                                                            </script>
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -454,7 +457,9 @@ title: Home
                                                             <span class="item-content">$35</span>
                                                         </td>
                                                         <td style="float: right;">
-                                                            <a href="https://commerce.coinbase.com/checkout/8b235693-6f13-4e6d-bd82-c2b42ff3e78d" target="_blank" class="button k-button k-secondary raised has-gradient is-bold">
+                                                            <a href="https://commerce.coinbase.com/checkout/8b235693-6f13-4e6d-bd82-c2b42ff3e78d"
+                                                               target="_blank"
+                                                               class="button k-button k-secondary raised has-gradient is-bold">
                                                                 <span class="text">Buy</span>
                                                                 <span class="front-gradient"></span>
                                                             </a>
@@ -739,3 +744,21 @@ title: Home
 
 
 </div>
+
+<script>
+    window.BuyWithCrypto.registerCallback('onSuccess', function(e){
+        // Charge was successfully completed
+        alert('onSuccess')
+    });
+
+    window.BuyWithCrypto.registerCallback('onFailure', function(e){
+        // Charge failed
+        alert('onFailure')
+    });
+
+    window.BuyWithCrypto.registerCallback('onPaymentDetected', function(e){
+        // Payment has been detected but not yet confirmed
+        alert('onPaymentDetected')
+
+    });
+</script>

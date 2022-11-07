@@ -31,5 +31,11 @@ document.onreadystatechange = function () {
 
     //Feather Icons
     const featherIcons = feather.replace();
+
+    function coinbaseCommerceInit(){
+      alert('here');
+    }
+
   }
+
 };
