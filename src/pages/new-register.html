@@ -28,23 +28,29 @@ title: Home
                 <!-- Hero image -->
                 <div class="column is-5 is-offset-1 ico-countdown">
                     <h1 class="title is-3 is-light is-semibold is-spaced main-title has-text-centered">Register</h1>
-                    <form class="login-form">
+                    <div class="login-form" x-data="{
+                    user:{
+                    username:null,
+                    password:null,
+                    confirmPassword:null
+                    }
+                    }">
                         <!-- Field -->
                         <div class="control-material is-primary">
-                            <input class="material-input " type="text" required>
+                            <input x-model="user.username" class="material-input " type="text" required>
                             <span class="material-highlight"></span>
                             <span class="bar"></span>
                             <label>Username</label>
                         </div>
                         <!-- Field -->
-                        <div class="control-material is-primary">
+                        <div x-model="user.password" class="control-material is-primary">
                             <input class="material-input " type="password" required>
                             <span class="material-highlight"></span>
                             <span class="bar"></span>
                             <label>Password</label>
                         </div>
 
-                        <div class="control-material is-primary">
+                        <div x-model="user.confirmPassword" class="control-material is-primary">
                             <input class="material-input " type="password" required>
                             <span class="material-highlight"></span>
                             <span class="bar"></span>
@@ -53,15 +59,28 @@ title: Home
 
                         <!-- Submit -->
                         <div>
-                            <button class="button is-button k-button k-primary raised has-gradient is-bold is-fullwidth">
+                            <button @click="
+                            if(user.password!==user.confirmPassword){
+                            alert('password and confirm password mismatch')
+                            return
+                            }
+                            fetch('http://localhost:9090/create/new/user', {
+                    method: 'POST',
+                    body: user
+                })
+                .then(response => {
+                    if (response.ok) alert('Updated Successfully!')
+                    else alert(`Something went wrong: ${response.status} - ${response.statusText}`)
+                })" class="button is-button k-button k-primary raised has-gradient is-bold is-fullwidth">
                                 <span class="text">Register</span>
                                 <span class="front-gradient"></span>
                             </button>
                         </div>
-                    </form>
+                    </div>
                     <br>
                     <div class="login-form">
-                        <a href="login-register.html" class="button is-button k-button k-primary raised has-gradient is-bold is-fullwidth">
+                        <a href="login-register.html"
+                           class="button is-button k-button k-primary raised has-gradient is-bold is-fullwidth">
                             <span class="text">Login</span>
                             <span class="front-gradient"></span>
                         </a>
