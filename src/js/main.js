@@ -15,6 +15,7 @@ Alpine.plugin(Fern);
 //Init Fern persisted store
 Alpine.persistedStore("app", {
   isSiderbarOpen: false,
+  currentUser: null,
 });
 //Start Alpine JS
 Alpine.start();

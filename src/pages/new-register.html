@@ -60,18 +60,44 @@ title: Home
                         <!-- Submit -->
                         <div>
                             <button @click="
-                            if(user.password!==user.confirmPassword){
-                            alert('password and confirm password mismatch')
-                            return
+
+                                if(user.password!==user.confirmPassword){
+                                    alert('password and confirm password mismatch')
+                                    return
+                                }
+
+                                var myHeaders = new Headers();
+                                myHeaders.append('Content-Type', 'application/json');
+
+                                var raw = JSON.stringify(user);
+
+                                var requestOptions = {
+                                    method: 'POST',
+                                    headers: myHeaders,
+                                    body: raw,
+                                    redirect: 'follow'
+                                };
+
+                                fetch('http://localhost:9090/create/new/user', requestOptions)
+                            .then(response => response.json())
+                            .then(result => {
+                            console.log(result)
+                            if(result.status.error_code==0){
+                            alert('Registration successful, Please login to continue')
+
+                                user.username=''
+                                user.password=''
+                                user.confirmPassword=''
+
                             }
-                            fetch('http://localhost:9090/create/new/user', {
-                    method: 'POST',
-                    body: user
-                })
-                .then(response => {
-                    if (response.ok) alert('Updated Successfully!')
-                    else alert(`Something went wrong: ${response.status} - ${response.statusText}`)
-                })" class="button is-button k-button k-primary raised has-gradient is-bold is-fullwidth">
+
+                            })
+                            .catch(error => console.log('error', error));
+
+
+
+
+" class="button is-button k-button k-primary raised has-gradient is-bold is-fullwidth">
                                 <span class="text">Register</span>
                                 <span class="front-gradient"></span>
                             </button>

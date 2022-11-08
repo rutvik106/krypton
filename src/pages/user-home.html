@@ -21,21 +21,25 @@ title: Home
             <div class="columns">
 
                 <!-- Landing page Title -->
-                <div class="column is-12 landing-caption">
+                <div class="column is-12 landing-caption" x-data="{
+
+
+
+                }">
 
                     <h1 class="title is-3 is-light is-semibold is-spaced main-title">Welcome, Test User</h1>
                     <br>
 
                     <!-- Field -->
                     <div class="control-material is-primary">
-                        <input class="material-input " type="text" required>
+                        <input x-model="$store.app.currentUser.binance_api_key" class="material-input " type="text" required>
                         <span class="material-highlight"></span>
                         <span class="bar"></span>
                         <label>Binance API Key</label>
                     </div>
                     <!-- Field -->
                     <div class="control-material is-primary">
-                        <input class="material-input " type="text" required>
+                        <input x-model="$store.app.currentUser.binance_api_secret" class="material-input " type="text" required>
                         <span class="material-highlight"></span>
                         <span class="bar"></span>
                         <label>Binance API Secret</label>

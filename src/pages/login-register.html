@@ -29,17 +29,23 @@ title: Home
                 <div class="column is-5 is-offset-1 ico-countdown">
                     <h1 class="title is-3 is-light is-semibold is-spaced main-title has-text-centered">Login to Trade
                         Vision</h1>
-                    <form class="login-form" action="user-home.html">
+                    <div class="login-form" x-data="{
+                    user:{
+                    username:'',
+                    password:''
+                    }
+
+                    }">
                         <!-- Field -->
                         <div class="control-material is-primary">
-                            <input class="material-input " type="text" required>
+                            <input x-model="user.username" class="material-input " type="text" required>
                             <span class="material-highlight"></span>
                             <span class="bar"></span>
                             <label>Username</label>
                         </div>
                         <!-- Field -->
                         <div class="control-material is-primary">
-                            <input class="material-input " type="password" required>
+                            <input x-model="user.password" class="material-input " type="password" required>
                             <span class="material-highlight"></span>
                             <span class="bar"></span>
                             <label>Password</label>
@@ -47,15 +53,44 @@ title: Home
 
                         <!-- Submit -->
                         <div>
-                            <button class="button is-button k-button k-primary raised has-gradient is-bold is-fullwidth">
+                            <button @click="
+                            if(user.username=='' && user.password){
+                                alert('username and password is required')
+                            }
+
+                            var myHeaders = new Headers();
+myHeaders.append('Content-Type', 'application/json');
+
+                            var raw = JSON.stringify(user);
+
+                            var requestOptions = {
+                            method: 'POST',
+                            headers: myHeaders,
+                            body: raw,
+                            redirect: 'follow'
+                            };
+
+                            fetch('http://localhost:9090/user/login', requestOptions)
+                            .then(response => response.json())
+                            .then(result => {
+                            console.log(result)
+                            if(result.status.error_code==0){
+                                $store.app.currentUser = result.data;
+                                window.location.replace('user-home.html');
+                            }
+                            })
+                            .catch(error => console.log('error', error));
+
+" class="button is-button k-button k-primary raised has-gradient is-bold is-fullwidth">
                                 <span class="text">Login</span>
                                 <span class="front-gradient"></span>
                             </button>
                         </div>
-                    </form>
+                    </div>
                     <br>
                     <div class="login-form">
-                        <a href="new-register.html" class="button is-button k-button k-primary raised has-gradient is-bold is-fullwidth">
+                        <a href="new-register.html"
+                           class="button is-button k-button k-primary raised has-gradient is-bold is-fullwidth">
                             <span class="text">Register</span>
                             <span class="front-gradient"></span>
                         </a>

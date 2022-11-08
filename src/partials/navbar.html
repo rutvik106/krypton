@@ -57,7 +57,13 @@
                 </div>
                 <!-- Sign up -->
                 <div class="navbar-item">
-                    <a href="login-register.html" class="button k-button k-primary raised has-gradient slanted">
+                    <a @click.prevent="
+                    if($store.app.currentUser != null){
+                                window.location.replace('user-home.html');
+                    }else{
+                                window.location.replace('login-register.html');
+                    }
+" href="#" class="button k-button k-primary raised has-gradient slanted">
                         <span class="text">Register / Login</span>
                         <span class="front-gradient"></span>
                     </a>
