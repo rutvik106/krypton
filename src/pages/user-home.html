@@ -27,30 +27,181 @@ title: Home
 
                 }">
 
-                    <h1 class="title is-3 is-light is-semibold is-spaced main-title">Welcome, Test User</h1>
-                    <br>
+                    <section id="plans"
+                             x-show="$store.app.currentUser.subscription_type==='0' && $store.app.currentUser.is_active===0"
+                             class="is-medium is-end">
+                        <!-- Container -->
+                        <div class="container">
+                            <!-- Divider -->
+                            <div class="divider is-centered"></div>
+                            <!-- Title & subtitle -->
+                            <h2 class="title is-light is-semibold has-text-centered is-spaced">
+                                Step 1 - Purchase a Plan
+                            </h2>
 
-                    <!-- Field -->
-                    <div class="control-material is-primary">
-                        <input x-model="$store.app.currentUser.binance_api_key" class="material-input " type="text" required>
-                        <span class="material-highlight"></span>
-                        <span class="bar"></span>
-                        <label>Binance API Key</label>
-                    </div>
-                    <!-- Field -->
-                    <div class="control-material is-primary">
-                        <input x-model="$store.app.currentUser.binance_api_secret" class="material-input " type="text" required>
-                        <span class="material-highlight"></span>
-                        <span class="bar"></span>
-                        <label>Binance API Secret</label>
-                    </div>
+                            <table id="plans-table">
 
-                    <br>
+                                <tr>
+                                    <th></th>
+                                    <th>PRO</th>
+                                    <th>PRO+</th>
+                                    <th>Degen</th>
+                                    <th>ULTRA Degen</th>
+                                </tr>
 
-                    <a href="new-register.html" class="button is-button k-button k-primary raised has-gradient is-bold">
-                        <span class="text">Save</span>
-                        <span class="front-gradient"></span>
-                    </a>
+                                <tr>
+                                    <td>Indicator</td>
+                                    <td style="text-align: center;"><img height="20" width="20"
+                                                                         src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/White_check.svg/1200px-White_check.svg.png?20140305103308">
+                                    </td>
+                                    <td style="text-align: center;"><img height="20" width="20"
+                                                                         src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/White_check.svg/1200px-White_check.svg.png?20140305103308">
+                                    </td>
+                                    <td style="text-align: center;"><img height="20" width="20"
+                                                                         src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/White_check.svg/1200px-White_check.svg.png?20140305103308">
+                                    </td>
+                                    <td style="text-align: center;"><img height="20" width="20"
+                                                                         src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/White_check.svg/1200px-White_check.svg.png?20140305103308">
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Alerts</td>
+                                    <td style="text-align: center;"><img height="25" width="25"
+                                                                         src="https://svg-clipart.com/clipart/white/xtnIPBO-white-x-cross-clipart.png">
+                                    </td>
+                                    <td style="text-align: center;"><img height="20" width="20"
+                                                                         src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/White_check.svg/1200px-White_check.svg.png?20140305103308">
+                                    </td>
+                                    <td style="text-align: center;"><img height="20" width="20"
+                                                                         src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/White_check.svg/1200px-White_check.svg.png?20140305103308">
+                                    </td>
+                                    <td style="text-align: center;"><img height="20" width="20"
+                                                                         src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/White_check.svg/1200px-White_check.svg.png?20140305103308">
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Bot Automation</td>
+                                    <td style="text-align: center;"><img height="25" width="25"
+                                                                         src="https://svg-clipart.com/clipart/white/xtnIPBO-white-x-cross-clipart.png">
+                                    </td>
+                                    <td style="text-align: center;"><img height="25" width="25"
+                                                                         src="https://svg-clipart.com/clipart/white/xtnIPBO-white-x-cross-clipart.png">
+                                    </td>
+                                    <td style="text-align: center;"><img height="20" width="20"
+                                                                         src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/White_check.svg/1200px-White_check.svg.png?20140305103308">
+                                    </td>
+                                    <td style="text-align: center;"><img height="20" width="20"
+                                                                         src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/White_check.svg/1200px-White_check.svg.png?20140305103308">
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Leverage</td>
+                                    <td style="text-align: center;"><img height="25" width="25"
+                                                                         src="https://svg-clipart.com/clipart/white/xtnIPBO-white-x-cross-clipart.png">
+                                    </td>
+                                    <td style="text-align: center;"><img height="25" width="25"
+                                                                         src="https://svg-clipart.com/clipart/white/xtnIPBO-white-x-cross-clipart.png">
+                                    </td>
+                                    <td style="text-align: center;"><img height="25" width="25"
+                                                                         src="https://svg-clipart.com/clipart/white/xtnIPBO-white-x-cross-clipart.png">
+                                    </td>
+                                    <td style="text-align: center;"><img height="20" width="20"
+                                                                         src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/White_check.svg/1200px-White_check.svg.png?20140305103308">
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                            <br>
+                            <br>
+
+                            <table id="plans-table-2">
+
+                                <tr>
+                                    <th></th>
+                                    <th>PRO</th>
+                                    <th>PRO+</th>
+                                    <th>Degen</th>
+                                    <th>ULTRA Degen</th>
+                                </tr>
+
+                                <tr>
+                                    <td>1 Month</td>
+                                    <td style="text-align: center;">$50</td>
+                                    <td style="text-align: center;">$100</td>
+                                    <td style="text-align: center;">$200</td>
+                                    <td style="text-align: center;">$250</td>
+                                </tr>
+
+                                <tr>
+                                    <td>3 Months</td>
+                                    <td style="text-align: center;">$35</td>
+                                    <td style="text-align: center;">$75</td>
+                                    <td style="text-align: center;">$150</td>
+                                    <td style="text-align: center;">$200</td>
+                                </tr>
+
+                                <tr>
+                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6 Months</td>
+                                    <td style="text-align: center;">$25</td>
+                                    <td style="text-align: center;">$50</td>
+                                    <td style="text-align: center;">$125</td>
+                                    <td style="text-align: center;">$150</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Lifetime</td>
+                                    <td style="text-align: center;">$400</td>
+                                    <td style="text-align: center;">$750</td>
+                                    <td style="text-align: center;">$1500</td>
+                                    <td style="text-align: center;">$2000</td>
+                                </tr>
+
+                            </table>
+
+                            <br>
+                            <br>
+
+                        </div>
+                        <!-- /Container -->
+                    </section>
+
+
+                    <section id="user-dashboard"
+                             x-show="$store.app.currentUser.subscription_type!=='0' && $store.app.currentUser.is_active===1">
+                        <h1 class="title is-3 is-light is-semibold is-spaced main-title">Welcome, <span
+                                x-text="$store.app.currentUser.username"></span></h1>
+                        <br>
+
+                        <!-- Field -->
+                        <div class="control-material is-primary">
+                            <input x-model="$store.app.currentUser.binance_api_key" class="material-input " type="text"
+                                   required>
+                            <span class="material-highlight"></span>
+                            <span class="bar"></span>
+                            <label>Binance API Key</label>
+                        </div>
+                        <!-- Field -->
+                        <div class="control-material is-primary">
+                            <input x-model="$store.app.currentUser.binance_api_secret" class="material-input "
+                                   type="text"
+                                   required>
+                            <span class="material-highlight"></span>
+                            <span class="bar"></span>
+                            <label>Binance API Secret</label>
+                        </div>
+
+                        <br>
+
+                        <a href="new-register.html"
+                           class="button is-button k-button k-primary raised has-gradient is-bold">
+                            <span class="text">Save</span>
+                            <span class="front-gradient"></span>
+                        </a>
+                    </section>
                 </div>
             </div>
         </div>
@@ -58,3 +209,39 @@ title: Home
 
 </section>
 <!-- /Landing page Hero -->
+
+<style>
+    #plans-table {
+        width: 100%;
+    }
+
+    #plans-table tr th {
+        color: white;
+        text-align: center;
+        padding: 20px;
+    }
+
+    #plans-table tr td {
+        width: 0%;
+        color: white;
+        text-align: right;
+        padding: 5px;
+    }
+
+    #plans-table-2 {
+        width: 100%;
+    }
+
+    #plans-table-2 tr th {
+        color: white;
+        text-align: center;
+        padding: 20px;
+    }
+
+    #plans-table-2 tr td {
+        width: 0%;
+        color: white;
+        text-align: right;
+        padding: 5px;
+    }
+</style>
