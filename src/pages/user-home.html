@@ -130,7 +130,18 @@ title: Home
 
                                 <tr>
                                     <td>1 Month</td>
-                                    <td style="text-align: center;">$50</td>
+                                    <td style="text-align: center;">
+
+                                        <div>
+                                            <a class="buy-with-crypto"
+                                               href="https://commerce.coinbase.com/checkout/59266145-a07e-4c0e-b6b9-edad9e1ee27b">
+                                                $50
+                                            </a>
+                                            <script src="https://commerce.coinbase.com/v1/checkout.js?version=201807">
+                                            </script>
+                                        </div>
+
+                                    </td>
                                     <td style="text-align: center;">$100</td>
                                     <td style="text-align: center;">$200</td>
                                     <td style="text-align: center;">$250</td>
@@ -171,14 +182,28 @@ title: Home
 
 
                     <section id="user-dashboard"
-                             x-show="$store.app.currentUser.subscription_type!=='0' && $store.app.currentUser.is_active===1">
-                        <h1 class="title is-3 is-light is-semibold is-spaced main-title">Welcome, <span
-                                x-text="$store.app.currentUser.username"></span></h1>
+                             x-show="$store.app.currentUser.subscription_type!=='0' && $store.app.currentUser.is_active===1 && $store.app.currentUser.binance_api_key==='' && $store.app.currentUser.binance_api_secret===''"
+                             x-data="
+           {
+           user:{
+           user_id:$store.app.currentUser.id,
+           key:$store.app.currentUser.binance_api_key,
+           secret:$store.app.currentUser.binance_api_secret
+           }
+           }
+"
+                    >
+                        <div class="divider is-centered"></div>
+                        <!-- Title & subtitle -->
+                        <h2 class="title is-light is-semibold has-text-centered is-spaced">
+                            Step 2 - Add your Binance API Key & Secret
+                        </h2>
+
                         <br>
 
                         <!-- Field -->
                         <div class="control-material is-primary">
-                            <input x-model="$store.app.currentUser.binance_api_key" class="material-input " type="text"
+                            <input x-model="user.key" class="material-input " type="text"
                                    required>
                             <span class="material-highlight"></span>
                             <span class="bar"></span>
@@ -186,7 +211,7 @@ title: Home
                         </div>
                         <!-- Field -->
                         <div class="control-material is-primary">
-                            <input x-model="$store.app.currentUser.binance_api_secret" class="material-input "
+                            <input x-model="user.secret" class="material-input "
                                    type="text"
                                    required>
                             <span class="material-highlight"></span>
@@ -196,12 +221,57 @@ title: Home
 
                         <br>
 
-                        <a href="new-register.html"
-                           class="button is-button k-button k-primary raised has-gradient is-bold">
-                            <span class="text">Save</span>
+                        <a href="#"
+                           @click="
+                            if(user.key=='' && user.secret==''){
+                                alert('key and secret is required')
+                            }
+
+                            var myHeaders = new Headers();
+myHeaders.append('Content-Type', 'application/json');
+
+                            var raw = JSON.stringify(user);
+
+                            var requestOptions = {
+                            method: 'POST',
+                            headers: myHeaders,
+                            body: raw,
+                            redirect: 'follow'
+                            };
+
+                            fetch('http://localhost:9090/user/update/api/keys', requestOptions)
+                            .then(response => response.json())
+                            .then(result => {
+                            console.log(result)
+                            if(result.status.error_code==0){
+                                $store.app.currentUser.binance_api_key=user.key,
+                                $store.app.currentUser.binance_api_secret=user.secret
+                                alert('Key & Secret added successfully')
+                            }
+                            })
+                            .catch(error => console.log('error', error));
+"
+                           class="button is-button k-button k-primary raised has-gradient is-bold is-pulled-right">
+                            <span class="text">Next</span>
                             <span class="front-gradient"></span>
                         </a>
                     </section>
+
+                    <section
+                             x-show="$store.app.currentUser.binance_api_key!=='' && $store.app.currentUser.binance_api_secret!==''"
+                    >
+                        <div class="divider is-centered"></div>
+                        <!-- Title & subtitle -->
+                        <h2 class="title is-light is-semibold has-text-centered is-spaced">
+                            Welcome, <span x-text="$store.app.currentUser.username"></span>
+                        </h2>
+                        <br>
+                        <h5 class="is-light has-text-centered is-spaced">You are all set, You can change your keys, secret, leverage and other settings from "SETTINGS" tab.</h5>
+
+                        <br>
+
+                    </section>
+
                 </div>
             </div>
         </div>
@@ -209,6 +279,28 @@ title: Home
 
 </section>
 <!-- /Landing page Hero -->
+
+<script>
+    window.BuyWithCrypto.registerCallback('onSuccess', function (e) {
+        // Charge was successfully completed
+        window.Alpine.store('app').currentUser.is_active = 1
+        window.Alpine.store('app').currentUser.subscription_type = '1'
+        alert('onSuccess')
+    });
+
+    window.BuyWithCrypto.registerCallback('onFailure', function (e) {
+        // Charge failed
+        window.Alpine.store('app').currentUser.is_active = 1
+        window.Alpine.store('app').currentUser.subscription_type = '1'
+        alert('onFailure')
+    });
+
+    window.BuyWithCrypto.registerCallback('onPaymentDetected', function (e) {
+        // Payment has been detected but not yet confirmed
+        alert('onPaymentDetected')
+
+    });
+</script>
 
 <style>
     #plans-table {

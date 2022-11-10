@@ -25,6 +25,83 @@ title: Home
 
                     <h1 class="title is-3 is-light is-semibold is-spaced main-title">Settings</h1>
 
+                    <br>
+
+                    <section id="user-dashboard"
+                             x-show="$store.app.currentUser.subscription_type!=='0' && $store.app.currentUser.is_active===1"
+                             x-data="
+           {
+           user:{
+           user_id:$store.app.currentUser.id,
+           key:$store.app.currentUser.binance_api_key,
+           secret:$store.app.currentUser.binance_api_secret
+           }
+           }
+"
+                    >
+                        <!-- Title & subtitle -->
+                        <h2 class="is-12 is-light has-text-white is-semibold is-spaced">
+                            Update your Binance API Key & Secret
+                        </h2>
+
+                        <br>
+
+                        <!-- Field -->
+                        <div class="control-material is-primary">
+                            <input x-model="user.key" class="material-input " type="text"
+                                   required>
+                            <span class="material-highlight"></span>
+                            <span class="bar"></span>
+                            <label>Binance API Key</label>
+                        </div>
+                        <!-- Field -->
+                        <div class="control-material is-primary">
+                            <input x-model="user.secret" class="material-input "
+                                   type="text"
+                                   required>
+                            <span class="material-highlight"></span>
+                            <span class="bar"></span>
+                            <label>Binance API Secret</label>
+                        </div>
+
+                        <br>
+
+                        <a href="#"
+                           @click="
+                            if(user.key=='' && user.secret==''){
+                                alert('key and secret is required')
+                            }
+
+                            var myHeaders = new Headers();
+myHeaders.append('Content-Type', 'application/json');
+
+                            var raw = JSON.stringify(user);
+
+                            var requestOptions = {
+                            method: 'POST',
+                            headers: myHeaders,
+                            body: raw,
+                            redirect: 'follow'
+                            };
+
+                            fetch('http://localhost:9090/user/update/api/keys', requestOptions)
+                            .then(response => response.json())
+                            .then(result => {
+                            console.log(result)
+                            if(result.status.error_code==0){
+                                $store.app.currentUser.binance_api_key=user.key,
+                                $store.app.currentUser.binance_api_secret=user.secret
+                                alert('Key & Secret updated successfully')
+                            }
+                            })
+                            .catch(error => console.log('error', error));
+"
+                           class="button is-button k-button k-primary raised has-gradient is-bold is-pulled-right">
+                            <span class="text">Update</span>
+                            <span class="front-gradient"></span>
+                        </a>
+                    </section>
+
                 </div>
             </div>
         </div>
