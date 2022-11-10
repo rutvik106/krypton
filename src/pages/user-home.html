@@ -244,7 +244,7 @@ myHeaders.append('Content-Type', 'application/json');
                             .then(result => {
                             console.log(result)
                             if(result.status.error_code==0){
-                                $store.app.currentUser.binance_api_key=user.key,
+                                $store.app.currentUser.binance_api_key=user.key
                                 $store.app.currentUser.binance_api_secret=user.secret
                                 alert('Key & Secret added successfully')
                             }
@@ -258,7 +258,7 @@ myHeaders.append('Content-Type', 'application/json');
                     </section>
 
                     <section
-                             x-show="$store.app.currentUser.binance_api_key!=='' && $store.app.currentUser.binance_api_secret!==''"
+                            x-show="$store.app.currentUser.binance_api_key!=='' && $store.app.currentUser.binance_api_secret!==''"
                     >
                         <div class="divider is-centered"></div>
                         <!-- Title & subtitle -->
@@ -266,7 +266,8 @@ myHeaders.append('Content-Type', 'application/json');
                             Welcome, <span x-text="$store.app.currentUser.username"></span>
                         </h2>
                         <br>
-                        <h5 class="is-light has-text-centered is-spaced">You are all set, You can change your keys, secret, leverage and other settings from "SETTINGS" tab.</h5>
+                        <h5 class="is-light has-text-centered is-spaced">You are all set, You can change your keys,
+                            secret, leverage and other settings from "SETTINGS" tab.</h5>
 
                         <br>
 
@@ -282,21 +283,56 @@ myHeaders.append('Content-Type', 'application/json');
 
 <script>
     window.BuyWithCrypto.registerCallback('onSuccess', function (e) {
+
         // Charge was successfully completed
+
+        console.log(e)
+
         window.Alpine.store('app').currentUser.is_active = 1
         window.Alpine.store('app').currentUser.subscription_type = '1'
-        alert('onSuccess')
+
+        var myHeaders = new Headers();
+        myHeaders.append('Content-Type', 'application/json');
+
+        var user = {
+            user_id: window.Alpine.store('app').currentUser.id,
+            plan: '1M-PRO',
+            transaction_id: '1M-PRO-' + Date.now(),
+        }
+
+        var raw = JSON.stringify(user);
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        window.fetch('http://localhost:9090/user/update/plan', requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                console.log(result)
+                if (result.status.error_code === 0) {
+                    window.Alpine.store('app').currentUser.is_active = 1
+                    window.Alpine.store('app').currentUser.subscription_type = '1'
+                    alert('Key & Secret added successfully')
+                }
+            })
+            .catch(error => console.log('error', error));
+
+        alert('Payment Success')
     });
 
     window.BuyWithCrypto.registerCallback('onFailure', function (e) {
         // Charge failed
-        window.Alpine.store('app').currentUser.is_active = 1
-        window.Alpine.store('app').currentUser.subscription_type = '1'
-        alert('onFailure')
+        console.log(e)
+        alert('Payment Failed')
     });
 
     window.BuyWithCrypto.registerCallback('onPaymentDetected', function (e) {
         // Payment has been detected but not yet confirmed
+        console.log(e)
         alert('onPaymentDetected')
 
     });
