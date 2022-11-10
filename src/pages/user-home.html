@@ -402,7 +402,7 @@ myHeaders.append('Content-Type', 'application/json');
                             redirect: 'follow'
                             };
 
-                            fetch('http://localhost:9090/user/update/api/keys', requestOptions)
+                            fetch('https:/cryptobot.stellartech.in/user/update/api/keys', requestOptions)
                             .then(response => response.json())
                             .then(result => {
                             console.log(result)
@@ -472,7 +472,7 @@ myHeaders.append('Content-Type', 'application/json');
             redirect: 'follow'
         };
 
-        window.fetch('http://localhost:9090/user/update/plan', requestOptions)
+        window.fetch('https:/cryptobot.stellartech.in/user/update/plan', requestOptions)
             .then(response => response.json())
             .then(result => {
                 console.log(result)
