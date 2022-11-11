@@ -14,7 +14,7 @@ Alpine.plugin(intersect);
 Alpine.plugin(Fern);
 //Init Fern persisted store
 Alpine.persistedStore("app", {
-  isSiderbarOpen: false,
+  isSidebarOpen: false,
   currentUser: null,
 });
 //Start Alpine JS
@@ -32,10 +32,6 @@ document.onreadystatechange = function () {
 
     //Feather Icons
     const featherIcons = feather.replace();
-
-    function coinbaseCommerceInit(){
-      alert('here');
-    }
 
   }
 

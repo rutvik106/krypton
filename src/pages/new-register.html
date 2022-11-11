@@ -21,29 +21,30 @@ title: Home
             <div class="columns is-vcentered">
 
                 <!-- Landing page Title -->
-                <div class="column is-5 landing-caption">
 
-                    <figure class="image">
-                        <img src="/img/media/robo-sleeping.png" alt=""/>
-                    </figure>
-
-                </div>
                 <!-- Hero image -->
-                <div class="column is-5 is-offset-1 ico-countdown">
+                <div class="column is-12 ico-countdown">
                     <h1 class="title is-3 is-light is-semibold is-spaced main-title has-text-centered">Register</h1>
                     <div class="login-form" x-data="{
                     user:{
                     username:null,
+                    tradingViewId:null,
                     password:null,
                     confirmPassword:null
                     }
                     }">
                         <!-- Field -->
                         <div class="control-material is-primary">
-                            <input x-model="user.username" class="material-input " type="text" required>
+                            <input x-model="user.username" class="material-input " type="email" required>
                             <span class="material-highlight"></span>
                             <span class="bar"></span>
-                            <label>Username</label>
+                            <label>Email</label>
+                        </div>
+                        <div class="control-material is-primary">
+                            <input x-model="user.tradingViewId" class="material-input " type="text" required>
+                            <span class="material-highlight"></span>
+                            <span class="bar"></span>
+                            <label>Trading View ID</label>
                         </div>
                         <!-- Field -->
                         <div x-model="user.password" class="control-material is-primary">
@@ -81,7 +82,7 @@ title: Home
                                     redirect: 'follow'
                                 };
 
-                                fetch('https:/cryptobot.stellartech.in/create/new/user', requestOptions)
+                                fetch('https://cryptobot.stellartech.in/create/new/user', requestOptions)
                             .then(response => response.json())
                             .then(result => {
                             console.log(result)
