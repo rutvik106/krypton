@@ -767,7 +767,7 @@ myHeaders.append('Content-Type', 'application/json');
         console.log('---------')
 
         if (e.event === 'charge_confirmed') {
-            alert('Payment Success')
+            alert('Payment Successful')
 
             window.Alpine.store('app').currentUser.is_active = 1
             window.Alpine.store('app').currentUser.subscription_type = '1'
@@ -780,6 +780,7 @@ myHeaders.append('Content-Type', 'application/json');
                 plan: '1M-PRO',
                 transaction_id: e.code + '-1M-PRO-' + Date.now(),
                 code: e.code,
+                event: e.event
             }
 
             var raw = JSON.stringify(user);
@@ -798,7 +799,7 @@ myHeaders.append('Content-Type', 'application/json');
                     if (result.status.error_code === 0) {
                         window.Alpine.store('app').currentUser.is_active = 1
                         window.Alpine.store('app').currentUser.subscription_type = '1'
-                        alert('Key & Secret added successfully')
+                        alert('Payment processed successfully, Your plan is activated now.')
                     }
                 })
                 .catch(error => console.log('error', error));
