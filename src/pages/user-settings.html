@@ -25,6 +25,8 @@ title: Home
 
                     <h1 class="title is-3 is-light is-semibold is-spaced main-title">Settings</h1>
 
+                    <div class="divider"></div>
+
                     <br>
 
                     <section id="user-dashboard"
@@ -34,7 +36,8 @@ title: Home
            user:{
            user_id:$store.app.currentUser.id,
            key:$store.app.currentUser.binance_api_key,
-           secret:$store.app.currentUser.binance_api_secret
+           secret:$store.app.currentUser.binance_api_secret,
+           leverage:$store.app.currentUser.default_leverage
            }
            }
 "
@@ -44,6 +47,7 @@ title: Home
                             Update your Binance API Key & Secret
                         </h2>
 
+                        <br>
                         <br>
 
                         <!-- Field -->
@@ -62,6 +66,16 @@ title: Home
                             <span class="material-highlight"></span>
                             <span class="bar"></span>
                             <label>Binance API Secret</label>
+                        </div>
+
+                        <h2 class="is-12 is-light has-text-white is-semibold is-spaced">
+                            Set your leverage (<span x-text="user.leverage"></span>x)
+                        </h2>
+
+                        <br>
+
+                        <div class="max-w-screen-xl mx-auto">
+                            <input class="w-full" type="range" x-model="user.leverage" min="1" max="10" step="0.1">
                         </div>
 
                         <br>
@@ -100,6 +114,8 @@ myHeaders.append('Content-Type', 'application/json');
                             <span class="text">Update</span>
                             <span class="front-gradient"></span>
                         </a>
+
+
                     </section>
 
                 </div>
