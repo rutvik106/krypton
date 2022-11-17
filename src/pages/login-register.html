@@ -24,6 +24,10 @@ title: Home
                 <!-- Hero image -->
                 <div class="column is-12 ico-countdown">
                     <h1 class="title is-3 is-light is-semibold is-spaced main-title has-text-centered">Login</h1>
+
+                    <div class="divider is-centered"></div>
+
+
                     <div class="login-form" x-data="{
                     user:{
                     username:'',
@@ -48,9 +52,45 @@ title: Home
 
                         <!-- Submit -->
                         <div>
-                            <button @click="
-                            if(user.username=='' && user.password){
+                            <input value="LOGIN" type="button" @click="
+                            if(user.username=='' && user.password==''){
                                 alert('username and password is required')
+                                return
+                            }
+
+                            var myHeaders = new Headers();
+myHeaders.append('Content-Type', 'application/json');
+
+                            var raw = JSON.stringify(user);
+
+                            var requestOptions = {
+                            method: 'POST',
+                            headers: myHeaders,
+                            body: raw,
+                            redirect: 'follow'
+                            };
+
+                            fetch('https://cryptobot.stellartech.in/user/login', requestOptions)
+                            .then(response => response.json())
+                            .then(result => {
+                            console.log(result)
+                            if(result.status.error_code==0){
+                                $store.app.currentUser = result.data;
+                                window.location.replace('user-home.html');
+                            }else{
+                                alert('invalid email or password');
+                            }
+                            })
+                            .catch(error => {
+                            alert('invalid email or password');
+                            console.log('error', error);
+                            });
+
+"
+                                    @keyup.enter="
+if(user.username=='' && && user.password==''){
+                                alert('username and password is required')
+                                return
                             }
 
                             var myHeaders = new Headers();
@@ -75,11 +115,10 @@ myHeaders.append('Content-Type', 'application/json');
                             }
                             })
                             .catch(error => console.log('error', error));
-
-" class="button is-button k-button k-primary raised has-gradient is-bold is-fullwidth">
-                                <span class="text">Login</span>
+"
+                                    class="button is-button k-button k-primary raised has-gradient is-bold is-fullwidth">
                                 <span class="front-gradient"></span>
-                            </button>
+                            </input>
                         </div>
                     </div>
                     <br>
