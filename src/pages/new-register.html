@@ -63,9 +63,18 @@ title: Home
                             <label>Confirm Password</label>
                         </div>
 
+
+                        <input id="terms-conditions" type="checkbox" required>
+                        <label style="color: white" for="terms-conditions">I have read and agreed to the <a href="terms-condition-page.html">Terms and
+                            Conditions</a></label>
+
+
+                        <br>
+                        <br>
+
                         <!-- Submit -->
                         <div>
-                            <button @click="
+                            <button disabled @click="
 
                                 if(user.password!==user.confirmPassword){
                                     alert('password and confirm password mismatch')
