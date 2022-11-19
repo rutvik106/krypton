@@ -33,7 +33,8 @@ title: Home
                     tradingViewId:null,
                     password:null,
                     confirmPassword:null
-                    }
+                    },
+                    termsAccepted:false,
                     }">
                         <!-- Field -->
                         <div class="control-material is-primary">
@@ -64,7 +65,7 @@ title: Home
                         </div>
 
 
-                        <input id="terms-conditions" type="checkbox" required>
+                        <input x-model="termsAccepted" id="terms-conditions" type="checkbox" required>
                         <label style="color: white" for="terms-conditions">I have read and agreed to the <a href="terms-condition-page.html">Terms and
                             Conditions</a></label>
 
@@ -74,7 +75,7 @@ title: Home
 
                         <!-- Submit -->
                         <div>
-                            <button disabled @click="
+                            <button x-bind:disabled="!termsAccepted" @click="
 
                                 if(user.password!==user.confirmPassword){
                                     alert('password and confirm password mismatch')
@@ -103,6 +104,10 @@ title: Home
                                 user.username=''
                                 user.password=''
                                 user.confirmPassword=''
+                                user.tradingViewId='',
+                                termsAccepted=false,
+
+                                window.location.replace('login-register.html');
 
                             }
 
