@@ -67,19 +67,32 @@ title: Home
                                 <th style="color: ghostwhite;">User Email</th>
                                 <th style="color: ghostwhite;">Trading View Id</th>
                                 <th style="color: ghostwhite;">Plan</th>
-                                <th style="color: ghostwhite;">Active</th>
+                                <th style="color: ghostwhite;">Plan Active</th>
                                 <th style="color: ghostwhite;">Subscription Date</th>
                                 <th style="color: ghostwhite;">Subscription Expires On</th>
                                 <th style="color: ghostwhite;">Last Renewed On</th>
-                                <th style="color: ghostwhite;">Set Leverage</th>
+                                <th style="color: ghostwhite;">Leverage</th>
                             </tr>
 
                             <template x-for="user in users">
                                 <tr>
                                     <td><span x-text="user.username"></span></td>
                                     <td><span x-text="user.trading_view_id"></span></td>
-                                    <td><span x-text="user.subscription_type"></span></td>
-                                    <td><span x-text="user.is_active"></span></td>
+
+                                    <template x-if="user.subscription_type==1">
+                                        <td><span>Pro</span></td>
+                                    </template>
+                                    <template x-if="user.subscription_type==0">
+                                        <td><span>-</span></td>
+                                    </template>
+
+                                    <template x-if="user.is_active==1">
+                                        <td><span>Yes</span></td>
+                                    </template>
+                                    <template x-if="user.is_active==0">
+                                        <td><span>No</span></td>
+                                    </template>
+
                                     <td><span x-text="user.subscription_date"></span></td>
                                     <td><span x-text="user.subscription_expires_on"></span></td>
                                     <td><span x-text="user.last_renewed_on"></span></td>
@@ -127,7 +140,9 @@ title: Home
                 <template x-if="$store.app.currentUser.subscription_type==='0' && $store.app.currentUser.is_active===0">
 
                     <section id="plans" style="height: 100vh"
-
+                             x-data="{
+                                selectedPlan:0
+                             }"
                              class="is-medium is-end">
                         <!-- Container -->
                         <div class="container">
@@ -234,7 +249,7 @@ title: Home
                                         <td>1 Month</td>
                                         <td style="text-align: center;">
 
-                                            <div>
+                                            <div @click="alert(selectedPlan)">
                                                 <a class="buy-with-crypto"
                                                    href="https://commerce.coinbase.com/checkout/59266145-a07e-4c0e-b6b9-edad9e1ee27b">
                                                     $50/mo
@@ -868,6 +883,8 @@ myHeaders.append('Content-Type', 'application/json');
 
 </div>
 
+<script src="https://commerce.coinbase.com/v1/checkout.js?onload=coinbaseCommerceInit"></script>
+
 <script>
     window.BuyWithCrypto.registerCallback('onSuccess', function (e) {
 
@@ -890,7 +907,8 @@ myHeaders.append('Content-Type', 'application/json');
                 plan: '1M-PRO',
                 transaction_id: e.code + '-1M-PRO-' + Date.now(),
                 code: e.code,
-                event: e.event
+                event: e.event,
+                timestamp: Date.now(),
             }
 
             var raw = JSON.stringify(user);
